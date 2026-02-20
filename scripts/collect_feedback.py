@@ -11,6 +11,15 @@ VALID_EXTENSIONS = [".jpg", ".jpeg", ".png"]
 
 results = []
 
+print("Current working dir:", os.getcwd())
+print("Asset path:", ASSET_DIR)
+
+if not os.path.exists(ASSET_DIR):
+    print("ASSET DIR NOT FOUND")
+    exit(1)
+
+print("Files found:", os.listdir(ASSET_DIR))
+
 
 def extract_label(filename):
     """
