@@ -1,5 +1,7 @@
 import os
+import re
 import json
+import time
 import requests
 
 URL = "http://localhost:8000/predict"
@@ -8,6 +10,19 @@ ASSET_DIR = "tests/assets"
 VALID_EXTENSIONS = [".jpg", ".jpeg", ".png"]
 
 results = []
+
+
+def extract_label(filename):
+    """
+    Extract true label from filename.
+    Works for:
+        cat.4001.jpg
+        dog_12.png
+        cat-99.jpeg
+    """
+    match = re.match(r"(cat|dog)", filename.lower())
+    return match.group(1) if match else None
+
 
 # scan all images
 for file_name in os.listdir(ASSET_DIR):
@@ -18,32 +33,43 @@ for file_name in os.listdir(ASSET_DIR):
     if not any(file_name.lower().endswith(ext) for ext in VALID_EXTENSIONS):
         continue
 
-    # infer true label from filename
-    if file_name.lower().startswith("cat"):
-        true_label = "cat"
-    elif file_name.lower().startswith("dog"):
-        true_label = "dog"
-    else:
+    # infer true label
+    true_label = extract_label(file_name)
+    if not true_label:
         print(f"Skipping unknown label file: {file_name}")
         continue
 
     print(f"Testing: {file_name}")
 
     try:
+        start = time.time()
+
         with open(file_path, "rb") as f:
             files = {"file": f}
-            response = requests.post(URL, files=files)
+            response = requests.post(URL, files=files, timeout=20)
 
-        pred = response.json()["prediction"]
+        latency_ms = round((time.time() - start) * 1000, 2)
+
+        if response.status_code != 200:
+            print(f"API failed for {file_name}: {response.status_code}")
+            continue
+
+        data = response.json()
+
+        pred = data.get("prediction") or data.get("label")
+        confidence = data.get("confidence", None)
 
         results.append({
             "image": file_name,
             "true_label": true_label,
-            "predicted_label": pred
+            "predicted_label": pred,
+            "confidence": confidence,
+            "latency_ms": latency_ms
         })
 
     except Exception as e:
         print(f"Failed on {file_name}: {e}")
+
 
 # save results
 with open("deployment_results.json", "w") as f:
