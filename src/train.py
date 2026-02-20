@@ -46,8 +46,10 @@ def train():
     # ---------------------------
     # MODEL
     # ---------------------------
+    input_dim = cfg.image_size * cfg.image_size * 3
+
     model = LogisticRegressionModel(
-        image_size=cfg.image_size,
+        input_dim=input_dim,
         num_classes=cfg.num_classes
     ).to(device)
 

@@ -11,7 +11,7 @@ def wait_for_service():
             time.sleep(3)
     return False
 
-def test_prediction():
+def run_smoke_test():
     url = "http://localhost:8000/predict"
 
     files = {
@@ -25,4 +25,4 @@ def test_prediction():
 
 if __name__ == "__main__":
     wait_for_service()
-    test_prediction()
+    run_smoke_test()

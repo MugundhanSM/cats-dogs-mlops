@@ -40,22 +40,22 @@ stages:
       size: 316
     - path: src/model.py
       hash: md5
-      md5: 942a4950e1d9fff0416adef93dbe947f
-      size: 427
+      md5: 72ca1567954de7c137a6c3ef7869199f
+      size: 369
     - path: src/preprocess_data.py
       hash: md5
       md5: f7e662c478bd0bfe7ac98ea379f74e21
       size: 2209
     - path: src/train.py
       hash: md5
-      md5: d5b9e72c6806db1e1e3ea4bcd1675427
-      size: 4103
+      md5: 8c089fc211a5b8b2ecab8472863fc949
+      size: 4152
     outs:
     - path: metrics.json
       hash: md5
-      md5: 64228fa1896926858bf62b4a1efccdda
+      md5: eba8f250d41c547752bde5d80151e4f9
       size: 28
     - path: models/model.pt
       hash: md5
-      md5: 2574a614d8fad80073a23a7e0496a458
-      size: 395157
+      md5: 40de9d4f7835936868d16d849ce8b8ac
+      size: 395093
