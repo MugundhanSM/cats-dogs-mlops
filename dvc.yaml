@@ -1,0 +1,25 @@
+stages:
+
+  preprocess:
+    cmd: python src/preprocess_data.py
+    deps:
+      - src/preprocess.py
+      - src/preprocess_data.py
+      - data/raw
+    outs:
+      - data/processed
+
+  train:
+    cmd: python src/train.py  
+    deps:
+      - src/config.py
+      - src/train.py
+      - src/model.py
+      - src/dataset.py
+      - src/preprocess_data.py
+      - data/processed
+    outs:
+      - models/model.pt
+    metrics:
+      - metrics.json:
+          cache: false

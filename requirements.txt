@@ -1,0 +1,17 @@
+torch
+torchvision
+pillow
+
+fastapi
+uvicorn
+
+mlflow==2.11.3
+
+pytest
+requests
+
+python-multipart
+pydantic
+dvc
+
+tqdm

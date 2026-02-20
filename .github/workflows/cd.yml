@@ -1,0 +1,29 @@
+name: CD Pipeline
+
+on:
+  push:
+    branchs:
+      - main
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Deploy Container
+      run: |
+        chmod +x scripts/deploy.sh
+        ./scripts/deploy.sh
+
+    - name: Install smoke test dependencies
+      run: pip install requests
+
+    - name: Run Smoke Tests
+      run: python scripts/smoke_test.py
