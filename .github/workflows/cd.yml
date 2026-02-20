@@ -1,9 +1,6 @@
 name: CD Pipeline
 
 on:
-  push:
-    branchs:
-      - main
   workflow_run:
     workflows: ["CI Pipeline"]
     types:
@@ -11,19 +8,29 @@ on:
 
 jobs:
   deploy:
+    # run CD ONLY if CI succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      # checkout repo
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Deploy Container
-      run: |
-        chmod +x scripts/deploy.sh
-        ./scripts/deploy.sh
+      # deploy using your script
+      - name: Deploy Container
+        run: |
+          chmod +x scripts/deploy.sh
+          ./scripts/deploy.sh
 
-    - name: Install smoke test dependencies
-      run: pip install requests
+      # wait a few seconds for API startup
+      - name: Wait for container startup
+        run: sleep 10
 
-    - name: Run Smoke Tests
-      run: python scripts/smoke_test.py
+      # install dependencies for smoke test
+      - name: Install smoke test dependencies
+        run: pip install requests
+
+      # run smoke tests
+      - name: Run Smoke Tests
+        run: python scripts/smoke_test.py
