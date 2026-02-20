@@ -22,6 +22,9 @@ jobs:
         run: |
           chmod +x scripts/deploy.sh
           ./scripts/deploy.sh
+      
+      - name: Show container logs
+        run: docker logs cats-dogs-mlops-api-1
 
       - name: Wait for API startup
         run: |
