@@ -24,7 +24,11 @@ jobs:
           ./scripts/deploy.sh
       
       - name: Show container logs
-        run: docker logs cats-dogs-mlops-api-1
+        run: docker logs --tail 100 cats-dogs-mlops-api-1
+
+      - name: Inspect running container
+        run: |
+          docker exec cats-dogs-mlops-api-1 ls -R
 
       - name: Wait for API startup
         run: |
