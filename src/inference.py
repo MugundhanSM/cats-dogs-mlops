@@ -12,9 +12,10 @@ class Predictor:
         self.cfg = Config()
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-        # Load model
+        input_dim = self.cfg.image_size * self.cfg.image_size * 3
+
         self.model = LogisticRegressionModel(
-            image_size=self.cfg.image_size,
+            input_dim=input_dim,
             num_classes=self.cfg.num_classes
         )
 
