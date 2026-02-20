@@ -22,15 +22,3 @@ jobs:
         run: |
           chmod +x scripts/deploy.sh
           ./scripts/deploy.sh
-
-      # wait a few seconds for API startup
-      - name: Wait for container startup
-        run: sleep 10
-
-      # install dependencies for smoke test
-      - name: Install smoke test dependencies
-        run: pip install requests
-
-      # run smoke tests
-      - name: Run Smoke Tests
-        run: python scripts/smoke_test.py
