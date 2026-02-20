@@ -22,3 +22,15 @@ jobs:
         run: |
           chmod +x scripts/deploy.sh
           ./scripts/deploy.sh
+
+      - name: Wait for container startup
+        run: sleep 15
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run Smoke Test
+        run: python scripts/smoke_test.py
+
+      - name: Run Monitoring Feedback Collection
+        run: python scripts/collect_feedback.py
