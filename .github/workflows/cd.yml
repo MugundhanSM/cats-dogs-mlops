@@ -23,8 +23,19 @@ jobs:
           chmod +x scripts/deploy.sh
           ./scripts/deploy.sh
 
-      - name: Wait for container startup
-        run: sleep 15
+      - name: Wait for API startup
+        run: |
+          echo "Waiting for API..."
+          for i in {1..30}; do
+            if curl -s http://localhost:8000/health; then
+              echo "API is ready!"
+              exit 0
+            fi
+            echo "Still waiting..."
+            sleep 2
+          done
+          echo "API failed to start"
+          exit 1
 
       - name: Install dependencies
         run: pip install requests

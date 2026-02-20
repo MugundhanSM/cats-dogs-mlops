@@ -12,3 +12,5 @@ echo "Starting new container..."
 docker compose up -d
 
 echo "Deployment completed."
+
+docker ps
