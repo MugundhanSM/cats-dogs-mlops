@@ -42,12 +42,6 @@ mlruns/
 mlflow.db
 
 # ===============================
-# MODELS (optional)
-# keep if using DVC for models
-# ===============================
-models/model.pt
-
-# ===============================
 # PYTEST
 # ===============================
 .pytest_cache/
