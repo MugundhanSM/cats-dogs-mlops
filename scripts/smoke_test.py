@@ -1,4 +1,5 @@
 import time
+import requests
 
 def wait_for_service():
     for _ in range(10):
