@@ -11,9 +11,18 @@ def wait_for_service():
             time.sleep(3)
     return False
 
-
 def test_prediction():
-    with open("tests/sample.jpg", "rb") as f:
-        files = {"file": f}
-        r = requests.post("http://localhost:8000/predict", files=files)
-        assert r.status_code == 200
+    url = "http://localhost:8000/predict"
+
+    files = {
+        "file": open("sample.jpg", "rb")
+    }
+
+    response = requests.post(url, files=files)
+
+    assert response.status_code == 200
+
+
+if __name__ == "__main__":
+    wait_for_service()
+    test_prediction()
