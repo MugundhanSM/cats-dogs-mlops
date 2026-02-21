@@ -165,56 +165,78 @@ The problem is intentionally simple so that focus remains on **MLOps infrastruct
 ---
 
 # 4. End-to-End Pipeline Overview
-```mermaid
-flowchart LR
+```
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+  font-family: Arial, sans-serif;
+}
 
-%% ---------- GLOBAL STYLES ----------
-classDef dev fill:#E3F2FD,stroke:#1E88E5,stroke-width:2,color:#0D47A1;
-classDef pack fill:#E8F5E9,stroke:#43A047,stroke-width:2,color:#1B5E20;
-classDef cicd fill:#FFF3E0,stroke:#FB8C00,stroke-width:2,color:#E65100;
-classDef monitor fill:#F3E5F5,stroke:#8E24AA,stroke-width:2,color:#4A148C;
-classDef spacer fill:none,stroke:none,color:none;
+.pipeline {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+}
 
-%% ---------- M1 ----------
-subgraph M1["M1 • Model Development & Experiment Tracking"]
-direction LR
-S1[" "]:::spacer
-A[Dataset] --> B[Preprocessing]
-B --> C[Model Training]
-C --> D[MLflow Tracking]
-end
+.box {
+  padding: 14px 18px;
+  border: 2px solid #1E88E5;
+  border-radius: 8px;
+  background: #E3F2FD;
+  font-weight: 600;
+  text-align: center;
+  min-width: 150px;
+}
 
-%% ---------- M2 ----------
-subgraph M2["M2 • Packaging & Containerization"]
-direction LR
-S2[" "]:::spacer
-E[Model Serialization] --> F[Inference API] --> G[Docker Image]
-end
+.arrow {
+  font-size: 24px;
+  font-weight: bold;
+  color: #444;
+}
+</style>
+</head>
 
-%% ---------- M3 / M4 ----------
-subgraph M3M4["M3 • CI Pipeline  |  M4 • CD Pipeline"]
-direction LR
-S3[" "]:::spacer
-H[CI Validation] --> I[CD Deployment]
-end
+<body>
 
-%% ---------- M5 ----------
-subgraph M5["M5 • Monitoring & Feedback"]
-direction LR
-S4[" "]:::spacer
-J[Monitoring & Feedback Loop]
-end
+<h2>End-to-End Pipeline Overview</h2>
 
-%% ---------- MAIN FLOW ----------
-D --> E
-G --> H
-I --> J
+<div class="pipeline">
+  <div class="box">Dataset</div>
+  <div class="arrow">→</div>
 
-%% ---------- CLASS ASSIGNMENT ----------
-class A,B,C,D dev;
-class E,F,G pack;
-class H,I cicd;
-class J monitor;
+  <div class="box">Preprocessing</div>
+  <div class="arrow">→</div>
+
+  <div class="box">Model Training</div>
+  <div class="arrow">→</div>
+
+  <div class="box">MLflow Tracking</div>
+  <div class="arrow">→</div>
+
+  <div class="box">Model Serialization</div>
+  <div class="arrow">→</div>
+
+  <div class="box">Inference API</div>
+  <div class="arrow">→</div>
+
+  <div class="box">Docker Image</div>
+  <div class="arrow">→</div>
+
+  <div class="box">CI Validation</div>
+  <div class="arrow">→</div>
+
+  <div class="box">CD Deployment</div>
+  <div class="arrow">→</div>
+
+  <div class="box">Monitoring & Feedback</div>
+</div>
+
+</body>
+</html>
 ```
 
 Each stage produces artifacts consumed by the next stage, creating traceability across the lifecycle.
