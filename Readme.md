@@ -165,78 +165,62 @@ The problem is intentionally simple so that focus remains on **MLOps infrastruct
 ---
 
 # 4. End-to-End Pipeline Overview
-```
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-body {
-  font-family: Arial, sans-serif;
-}
+```mermaid
+flowchart LR
 
-.pipeline {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: wrap;
-}
+%% ===== M1 =====
+subgraph M1["M1 - Model Development & Experiment Tracking"]
+direction LR
+M1SPACE[" "]:::blank
+A[Dataset] --> B[Preprocessing]
+B --> C[Model Training]
+C --> D[MLflow Tracking]
+end
 
-.box {
-  padding: 14px 18px;
-  border: 2px solid #1E88E5;
-  border-radius: 8px;
-  background: #E3F2FD;
-  font-weight: 600;
-  text-align: center;
-  min-width: 150px;
-}
+%% ===== M2 =====
+subgraph M2["M2 - Packaging & Containerization"]
+direction LR
+M2SPACE[" "]:::blank
+E[Model Serialization] --> F[Inference API] --> G[Docker Image]
+end
 
-.arrow {
-  font-size: 24px;
-  font-weight: bold;
-  color: #444;
-}
-</style>
-</head>
+%% ===== M3/M4 =====
+subgraph M3M4["M3 - CI Pipeline / M4 - CD Pipeline"]
+direction LR
+M3SPACE[" "]:::blank
+H[CI Validation] --> I[CD Deployment]
+end
 
-<body>
+%% ===== M5 =====
+subgraph M5["M5 - Monitoring & Feedback"]
+direction LR
+M5SPACE[" "]:::blank
+J[Monitoring & Feedback Loop]
+end
 
-<h2>End-to-End Pipeline Overview</h2>
+%% ===== FLOW =====
+D --> E
+G --> H
+I --> J
 
-<div class="pipeline">
-  <div class="box">Dataset</div>
-  <div class="arrow">→</div>
+%% ===== NODE STYLES (BLACK TEXT) =====
+style A fill:#90CAF9,stroke:#1E88E5,stroke-width:2px,color:#000
+style B fill:#90CAF9,stroke:#1E88E5,stroke-width:2px,color:#000
+style C fill:#90CAF9,stroke:#1E88E5,stroke-width:2px,color:#000
+style D fill:#90CAF9,stroke:#1E88E5,stroke-width:2px,color:#000
 
-  <div class="box">Preprocessing</div>
-  <div class="arrow">→</div>
+style E fill:#A5D6A7,stroke:#43A047,stroke-width:2px,color:#000
+style F fill:#A5D6A7,stroke:#43A047,stroke-width:2px,color:#000
+style G fill:#A5D6A7,stroke:#43A047,stroke-width:2px,color:#000
 
-  <div class="box">Model Training</div>
-  <div class="arrow">→</div>
+style H fill:#FFCC80,stroke:#FB8C00,stroke-width:2px,color:#000
+style I fill:#FFCC80,stroke:#FB8C00,stroke-width:2px,color:#000
 
-  <div class="box">MLflow Tracking</div>
-  <div class="arrow">→</div>
+style J fill:#CE93D8,stroke:#8E24AA,stroke-width:2px,color:#000
 
-  <div class="box">Model Serialization</div>
-  <div class="arrow">→</div>
-
-  <div class="box">Inference API</div>
-  <div class="arrow">→</div>
-
-  <div class="box">Docker Image</div>
-  <div class="arrow">→</div>
-
-  <div class="box">CI Validation</div>
-  <div class="arrow">→</div>
-
-  <div class="box">CD Deployment</div>
-  <div class="arrow">→</div>
-
-  <div class="box">Monitoring & Feedback</div>
-</div>
-
-</body>
-</html>
+%% ===== SPACER =====
+classDef blank fill:none,stroke:none,color:none;
+class M1SPACE,M2SPACE,M3SPACE,M5SPACE blank;
 ```
 
 Each stage produces artifacts consumed by the next stage, creating traceability across the lifecycle.
