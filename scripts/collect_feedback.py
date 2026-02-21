@@ -3,7 +3,7 @@ import json
 import requests
 
 URL = "http://localhost:8000/predict"
-ASSET_DIR = "tests/assets"
+ASSET_DIR = "data/val"
 
 VALID_EXTENSIONS = [".jpg", ".jpeg", ".png"]
 

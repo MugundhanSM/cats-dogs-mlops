@@ -30,6 +30,11 @@ stages:
       md5: 56f32e9016648711dd37f6867cd5b1fc.dir
       size: 19441143
       nfiles: 5000
+    - path: data/val
+      hash: md5
+      md5: 3c6a548ae2f872a2ffa499d61ba6f8bf.dir
+      size: 46264787
+      nfiles: 2023
     - path: src/config.py
       hash: md5
       md5: 90322d7e3aa5dd76cf463414ac55a889
@@ -53,9 +58,9 @@ stages:
     outs:
     - path: metrics.json
       hash: md5
-      md5: eba8f250d41c547752bde5d80151e4f9
+      md5: adba0fc834ee2506ee6424b4f96c249b
       size: 28
     - path: models/model.pt
       hash: md5
-      md5: 40de9d4f7835936868d16d849ce8b8ac
+      md5: b8ea22c6e1efb98c77867cec9a0b81dd
       size: 395093

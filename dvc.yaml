@@ -12,6 +12,7 @@ stages:
   train:
     cmd: python src/train.py  
     deps:
+      - data/val
       - src/config.py
       - src/train.py
       - src/model.py
