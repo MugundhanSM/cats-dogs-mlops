@@ -788,7 +788,7 @@ pip install -r requirements.txt
 
 | Command | Purpose |
 |---|---|
-| `dvc repro` | Run full pipeline |
+| `dvc repro` | Run or update DVC pipeline based on dependency changes |
 | `python src/train.py` | Train model |
 | `mlflow ui` | Launch tracking UI |
 | `uvicorn app.api:app --reload` | Run API |
