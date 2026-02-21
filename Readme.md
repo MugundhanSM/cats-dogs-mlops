@@ -249,10 +249,10 @@ Each stage produces artifacts consumed by the next stage, creating traceability 
 flowchart LR
 
 %% ---------- STYLES ----------
-classDef api fill:#E3F2FD,stroke:#1E88E5,stroke-width:2,color:#0D47A1;
-classDef infer fill:#E8F5E9,stroke:#43A047,stroke-width:2,color:#1B5E20;
-classDef monitor fill:#FFF3E0,stroke:#FB8C00,stroke-width:2,color:#E65100;
-classDef output fill:#F3E5F5,stroke:#8E24AA,stroke-width:2,color:#4A148C;
+classDef api fill:#90CAF9,stroke:#1E88E5,stroke-width:2px,color:#000;
+classDef infer fill:#A5D6A7,stroke:#43A047,stroke-width:2px,color:#000;
+classDef monitor fill:#FFCC80,stroke:#FB8C00,stroke-width:2px,color:#000;
+classDef output fill:#CE93D8,stroke:#8E24AA,stroke-width:2px,color:#000;
 classDef spacer fill:none,stroke:none,color:none;
 
 %% ---------- INFERENCE FLOW ----------
@@ -273,6 +273,7 @@ class A,B api;
 class C,D infer;
 class E monitor;
 class F output;
+class S1 spacer;
 ```
 
 ---
@@ -434,14 +435,14 @@ Logistic Regression on flattened pixels.
 flowchart LR
 
 %% ---------- STYLES ----------
-classDef data fill:#E3F2FD,stroke:#1E88E5,stroke-width:2,color:#0D47A1;
-classDef train fill:#E8F5E9,stroke:#43A047,stroke-width:2,color:#1B5E20;
-classDef eval fill:#FFF3E0,stroke:#FB8C00,stroke-width:2,color:#E65100;
-classDef output fill:#F3E5F5,stroke:#8E24AA,stroke-width:2,color:#4A148C;
+classDef data fill:#90CAF9,stroke:#1E88E5,stroke-width:2px,color:#000;
+classDef train fill:#A5D6A7,stroke:#43A047,stroke-width:2px,color:#000;
+classDef eval fill:#FFCC80,stroke:#FB8C00,stroke-width:2px,color:#000;
+classDef output fill:#CE93D8,stroke:#8E24AA,stroke-width:2px,color:#000;
 classDef spacer fill:none,stroke:none,color:none;
 
 %% ---------- TRAINING PIPELINE ----------
-subgraph TRAIN["Model Training Flow"]
+subgraph TRAIN["Training Flow"]
 direction LR
 S1[" "]:::spacer
 
@@ -458,6 +459,7 @@ class A data;
 class B,C,D train;
 class E eval;
 class F output;
+class S1 spacer;
 ```
 
 Serialized using:
@@ -536,14 +538,14 @@ Endpoints:
 flowchart LR
 
 %% ---------- STYLES ----------
-classDef input fill:#E3F2FD,stroke:#1E88E5,stroke-width:2,color:#0D47A1;
-classDef process fill:#E8F5E9,stroke:#43A047,stroke-width:2,color:#1B5E20;
-classDef inference fill:#FFF3E0,stroke:#FB8C00,stroke-width:2,color:#E65100;
-classDef output fill:#F3E5F5,stroke:#8E24AA,stroke-width:2,color:#4A148C;
+classDef input fill:#90CAF9,stroke:#1E88E5,stroke-width:2px,color:#000;
+classDef process fill:#A5D6A7,stroke:#43A047,stroke-width:2px,color:#000;
+classDef inference fill:#FFCC80,stroke:#FB8C00,stroke-width:2px,color:#000;
+classDef output fill:#CE93D8,stroke:#8E24AA,stroke-width:2px,color:#000;
 classDef spacer fill:none,stroke:none,color:none;
 
 %% ---------- IMAGE INFERENCE FLOW ----------
-subgraph IMG["Image Processing & Inference Flow"]
+subgraph IMG["Image Inference Flow"]
 direction LR
 S1[" "]:::spacer
 
@@ -557,10 +559,10 @@ end
 
 %% ---------- CLASS ASSIGNMENT ----------
 class A,B input;
-class C process;
+class C,E process;
 class D inference;
-class E process;
 class F output;
+class S1 spacer;
 ```
 ---
 
@@ -621,14 +623,14 @@ CI prevents regressions.
 flowchart LR
 
 %% ---------- STYLES ----------
-classDef source fill:#E3F2FD,stroke:#1E88E5,stroke-width:2,color:#0D47A1;
-classDef build fill:#E8F5E9,stroke:#43A047,stroke-width:2,color:#1B5E20;
-classDef test fill:#FFF3E0,stroke:#FB8C00,stroke-width:2,color:#E65100;
-classDef output fill:#F3E5F5,stroke:#8E24AA,stroke-width:2,color:#4A148C;
+classDef source fill:#90CAF9,stroke:#1E88E5,stroke-width:2px,color:#000;
+classDef build fill:#A5D6A7,stroke:#43A047,stroke-width:2px,color:#000;
+classDef test fill:#FFCC80,stroke:#FB8C00,stroke-width:2px,color:#000;
+classDef output fill:#CE93D8,stroke:#8E24AA,stroke-width:2px,color:#000;
 classDef spacer fill:none,stroke:none,color:none;
 
 %% ---------- CI PIPELINE ----------
-subgraph CI["CI Pipeline Flow"]
+subgraph CI["CI Pipeline"]
 direction LR
 S1[" "]:::spacer
 
@@ -644,6 +646,7 @@ class A source;
 class B,D build;
 class C test;
 class E output;
+class S1 spacer;
 ```
 
 ### Tests Include
@@ -686,14 +689,14 @@ Docker Compose.
 flowchart LR
 
 %% ---------- STYLES ----------
-classDef trigger fill:#E3F2FD,stroke:#1E88E5,stroke-width:2,color:#0D47A1;
-classDef deploy fill:#E8F5E9,stroke:#43A047,stroke-width:2,color:#1B5E20;
-classDef validate fill:#FFF3E0,stroke:#FB8C00,stroke-width:2,color:#E65100;
-classDef output fill:#F3E5F5,stroke:#8E24AA,stroke-width:2,color:#4A148C;
+classDef trigger fill:#90CAF9,stroke:#1E88E5,stroke-width:2px,color:#000;
+classDef deploy fill:#A5D6A7,stroke:#43A047,stroke-width:2px,color:#000;
+classDef validate fill:#FFCC80,stroke:#FB8C00,stroke-width:2px,color:#000;
+classDef output fill:#CE93D8,stroke:#8E24AA,stroke-width:2px,color:#000;
 classDef spacer fill:none,stroke:none,color:none;
 
 %% ---------- CD PIPELINE ----------
-subgraph CD["CD Deployment Flow"]
+subgraph CD["CD Pipeline"]
 direction LR
 S1[" "]:::spacer
 
@@ -710,6 +713,7 @@ class A trigger;
 class B,C deploy;
 class D,E validate;
 class F output;
+class S1 spacer;
 ```
 
 ---
