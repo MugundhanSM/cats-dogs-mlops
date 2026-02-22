@@ -39,9 +39,9 @@ jobs:
     # -------- BUILD IMAGE ----------
     - name: Build Docker Image
       run: |
-        docker build -t ghcr.io/${{ github.repository }}:latest .
+        docker build -t ghcr.io/mugundhansm/cats-dogs-mlops:latest .
 
     # -------- PUSH IMAGE ----------
     - name: Push Docker Image
       run: |
-        docker push ghcr.io/${{ github.repository }}:latest
+        docker push ghcr.io/mugundhansm/cats-dogs-mlops:latest
