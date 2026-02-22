@@ -215,7 +215,7 @@ Each stage produces artifacts consumed by the next stage, creating traceability 
 6. Codebase Structure Deep Dive  
 7. M1: Model Development & Experiment Tracking  
 8. M2: Packaging & Containerization  
-9. M3: CI Pipeline  
+9. M3: CI Pipeline  & Docker Image push to GitHub Registry
 10. M4: CD Pipeline & Deployment  
 11. M5: Monitoring & Logging  
 12. Installation & Setup  
@@ -270,7 +270,7 @@ Thus, architectural decisions prioritized:
 | M1 | Versioning | DVC tracking of data/model | `dvc.yaml`, `.dvc` files | Reproducible pipeline | ✅ |
 | M2 | API service | FastAPI inference endpoints | `app/api.py` | Running service | ✅ |
 | M2 | Containerization | Docker + Compose | `Dockerfile`, `docker-compose.yml` | Container deployment | ✅ |
-| M3 | CI automation | Test + build workflows | `.github/workflows/ci.yml` | GitHub Actions | ✅ |
+| M3 | CI automation | Test + build workflows | `.github/workflows/ci.yml` | GitHub Actions & Docker Image push to Registry | ✅ |
 | M3 | Testing | Unit + smoke tests | `tests/`, `scripts/smoke_test.py` | CI logs | ✅ |
 | M4 | CD deployment | Automated container deploy | `.github/workflows/cd.yml` | Successful runs | ✅ |
 | M4 | Deployment validation | Health + smoke checks | CD workflow | Deployment verification | ✅ |
@@ -687,15 +687,16 @@ S1[" "]:::spacer
 A[Push Code] --> B[Install Dependencies]
 B --> C[Run Tests]
 C --> D[Build Docker Image]
-D --> E[Success / Fail]
+D --> E[push to Github Registry]
+E --> F[Success / Fail]
 
 end
 
 %% ---------- CLASS ASSIGNMENT ----------
 class A source;
-class B,D build;
+class B,D,E build;
 class C test;
-class E output;
+class F output;
 class S1 spacer;
 ```
 
@@ -713,7 +714,7 @@ Any failure stops pipeline.
 
 ## Artifact Publishing
 
-Docker image is built and tagged.
+Docker image is built, tagged and pushed to Github Registry.
 
 Purpose:
 
