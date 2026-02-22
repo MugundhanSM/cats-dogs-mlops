@@ -17,6 +17,13 @@ Rather than treating machine learning as a standalone training task, this implem
 
 ---
 
+## Project Links
+
+| Resource | Link |
+|---|---|
+| GitHub Repository | [Cats vs Dogs MLOps](https://github.com/MugundhanSM/cats-dogs-mlops) |
+| Demo Video (Screen Recording) | [Watch End-to-End Demo](https://drive.google.com/file/d/1NCNm7DrZrNA8LGoXhsNYxre-k0aM1u4F/view?usp=sharing) |
+
 # Quick Start
 
 Run the complete MLOps pipeline locally in a few steps.
