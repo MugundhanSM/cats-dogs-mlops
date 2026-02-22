@@ -48,6 +48,7 @@ pip install -r requirements.txt
 ```
 ## Run DVC Pipeline (Preprocess + Train)
 ```bash
+dvc init
 dvc repro
 ```
 
@@ -468,6 +469,7 @@ ML systems fail reproducibility without data tracking.
 - DVC tracks datasets and model artifacts.
 
 ```bash
+dvc init
 dvc repro
 ```
 
@@ -1005,6 +1007,7 @@ pip install -r requirements.txt
 
 | Command | Purpose |
 |---|---|
+| `dvc init` | Initialize DVC |
 | `dvc repro` | Run or update DVC pipeline based on dependency changes |
 | `python src/train.py` | Train model |
 | `mlflow ui` | Launch tracking UI |
