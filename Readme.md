@@ -1,5 +1,13 @@
 # Cats vs Dogs Classification - End-to-End MLOps Lifecycle Implementation
 
+## Project Information
+
+| Field | Details |
+|---|---|
+| Project Title | Binary image classification (Cats vs Dogs) for a pet adoption platform. – End-to-End MLOps Lifecycle Implementation |
+| Group | Group 8 |
+| Contributors | <ul><li>Mugundhan S M - 2024AA05272</li><li>SHUKLA YASH ANAND - 2024AA05090</li><li>NITHIN N - 2024AA05913</li><li>MEGHANA K M - 2024AB05011</li><li>NAVEEN KUMAR - 2024AA05911</li></ul> |
+
 ![Python](https://img.shields.io/badge/Python-3.10-blue.svg)
 ![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-red)
 ![FastAPI](https://img.shields.io/badge/FastAPI-API-009688)
