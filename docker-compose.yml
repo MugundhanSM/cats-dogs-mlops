@@ -1,5 +1,5 @@
 services:
   api:
-    build: .
+    image: ghcr.io/mugundhansm/cats-dogs-mlops:latest
     ports:
       - "8000:8000"

@@ -2,8 +2,10 @@
 
 set -e
 
-echo "Building Docker image..."
-docker build -t cats-dogs-mlops .
+IMAGE="ghcr.io/mugundhansm/cats-dogs-mlops:latest"
+
+echo "Pulling latest image from registry..."
+docker pull $IMAGE
 
 echo "Stopping old containers..."
 docker compose down || true

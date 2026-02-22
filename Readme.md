@@ -17,6 +17,84 @@ Rather than treating machine learning as a standalone training task, this implem
 
 ---
 
+# Quick Start
+
+Run the complete MLOps pipeline locally in a few steps.
+
+---
+
+## Clone Repository
+```bash
+git clone https://github.com/MugundhanSM/cats-dogs-mlops.git
+cd cats-dogs-mlops
+```
+## Create Virtual Environment
+```bash
+python -m venv venv
+source venv/bin/activate     # Linux / Mac
+venv\Scripts\activate        # Windows
+```
+
+## Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+## Run DVC Pipeline (Preprocess + Train)
+```bash
+dvc repro
+```
+
+This will:
+
+- preprocess dataset
+
+- train model
+
+- log experiments to MLflow
+
+## Launch MLflow UI
+```bash
+mlflow ui
+```
+
+Open:
+```
+http://127.0.0.1:5000
+```
+## Start FastAPI Service
+```bash
+uvicorn app.api:app --reload
+```
+
+Open API docs:
+```
+http://127.0.0.1:8000/docs
+```
+
+## Run with Docker
+
+- Build image:
+```bash
+docker build -t cats-dogs-api .
+```
+
+- Run container:
+```bash
+docker run -p 8000:8000 cats-dogs-api
+```
+
+## Verify API Health
+```bash
+GET http://127.0.0.1:8000/health
+```
+
+### Expected response:
+```json
+{
+  "status": "ok"
+}
+```
+
 ## Problem Statement
 
 The objective is to build a deployable ML system capable of classifying images into two classes:
@@ -43,106 +121,6 @@ The implementation strictly follows the assignment modules:
 - **M3:** CI Pipeline  
 - **M4:** CD Pipeline & Deployment  
 - **M5:** Monitoring & Logging  
-
-## End-to-End Pipeline Overview
-
-
-Raw Dataset
-↓
-Data Preprocessing (DVC)
-↓
-Model Training (PyTorch)
-↓
-Experiment Tracking (MLflow)
-↓
-Model Artifact (DVC)
-↓
-FastAPI Inference Service
-↓
-Docker Containerization
-↓
-CI Pipeline (Validation & Build)
-↓
-CD Pipeline (Deployment)
-↓
-Monitoring + Feedback Collection
-
-
----
-
-# Table of Contents
-
-1. Assignment Requirement Analysis  
-2. Requirement Coverage Matrix  
-3. Problem Understanding & Motivation  
-4. End-to-End Pipeline Overview  
-5. System Architecture  
-6. Codebase Structure Deep Dive  
-7. M1: Model Development & Experiment Tracking  
-8. M2: Packaging & Containerization  
-9. M3: CI Pipeline  
-10. M4: CD Pipeline & Deployment  
-11. M5: Monitoring & Logging  
-12. Installation & Setup  
-13. Full Command Reference  
-14. Usage Walkthrough  
-15. Engineering Challenges & Strategic Solutions  
-16. Performance & Optimization  
-17. Limitations  
-18. Future Improvements  
-19. Engineering Learnings  
-20. Conclusion  
-
----
-
-# 1. Assignment Requirement Analysis
-
-The assignment evaluates the complete ML lifecycle rather than isolated model performance.
-
-### Core Goals
-
-- Ensure reproducibility of ML experiments.
-- Apply proper artifact and data versioning.
-- Package models into deployable software.
-- Validate code changes automatically.
-- Deploy automatically after validation.
-- Monitor deployed behavior.
-
-### Evaluation Perspective
-
-The scoring emphasizes:
-
-- Engineering completeness over novelty.
-- Traceability across pipeline stages.
-- Automation and robustness.
-- Design clarity and maintainability.
-
-Thus, architectural decisions prioritized:
-
-- Simplicity with correctness.
-- Transparent workflows.
-- Explicit separation between training and inference.
-
----
-
-# 2. Requirement Coverage Matrix
-
-| Module | Requirement | Implementation Strategy | Code Location | Evidence | Status |
-|---|---|---|---|---|---|
-| M1 | Data preprocessing | Resize, split, augmentation pipeline | `src/preprocess_data.py` | DVC stage outputs | ✅ |
-| M1 | Baseline model | Logistic regression baseline | `src/model.py` | Training logs | ✅ |
-| M1 | Experiment tracking | MLflow param/metric/artifact logging | `src/train.py` | MLflow runs | ✅ |
-| M1 | Versioning | DVC tracking of data/model | `dvc.yaml`, `.dvc` files | Reproducible pipeline | ✅ |
-| M2 | API service | FastAPI inference endpoints | `app/api.py` | Running service | ✅ |
-| M2 | Containerization | Docker + Compose | `Dockerfile`, `docker-compose.yml` | Container deployment | ✅ |
-| M3 | CI automation | Test + build workflows | `.github/workflows/ci.yml` | GitHub Actions | ✅ |
-| M3 | Testing | Unit + smoke tests | `tests/`, `scripts/smoke_test.py` | CI logs | ✅ |
-| M4 | CD deployment | Automated container deploy | `.github/workflows/cd.yml` | Successful runs | ✅ |
-| M4 | Deployment validation | Health + smoke checks | CD workflow | Deployment verification | ✅ |
-| M5 | Monitoring | Latency + request counters | `app/api.py` | `/metrics` endpoint | ✅ |
-| M5 | Post-deploy evaluation | Feedback loop scripts | `scripts/collect_feedback.py` | Results JSON | ✅ |
-
----
 
 # 3. Problem Understanding & Motivation
 
@@ -227,6 +205,80 @@ Each stage produces artifacts consumed by the next stage, creating traceability 
 
 ---
 
+# Table of Contents
+
+1. Assignment Requirement Analysis  
+2. Requirement Coverage Matrix  
+3. Problem Understanding & Motivation  
+4. End-to-End Pipeline Overview  
+5. System Architecture  
+6. Codebase Structure Deep Dive  
+7. M1: Model Development & Experiment Tracking  
+8. M2: Packaging & Containerization  
+9. M3: CI Pipeline  
+10. M4: CD Pipeline & Deployment  
+11. M5: Monitoring & Logging  
+12. Installation & Setup  
+13. Full Command Reference  
+14. Usage Walkthrough  
+15. Engineering Challenges & Strategic Solutions  
+16. Performance & Optimization  
+17. Limitations  
+18. Future Improvements  
+19. Engineering Learnings  
+20. Conclusion  
+
+---
+
+# 1. Assignment Requirement Analysis
+
+The assignment evaluates the complete ML lifecycle rather than isolated model performance.
+
+### Core Goals
+
+- Ensure reproducibility of ML experiments.
+- Apply proper artifact and data versioning.
+- Package models into deployable software.
+- Validate code changes automatically.
+- Deploy automatically after validation.
+- Monitor deployed behavior.
+
+### Evaluation Perspective
+
+The scoring emphasizes:
+
+- Engineering completeness over novelty.
+- Traceability across pipeline stages.
+- Automation and robustness.
+- Design clarity and maintainability.
+
+Thus, architectural decisions prioritized:
+
+- Simplicity with correctness.
+- Transparent workflows.
+- Explicit separation between training and inference.
+
+---
+
+# 2. Requirement Coverage Matrix
+
+| Module | Requirement | Implementation Strategy | Code Location | Evidence | Status |
+|---|---|---|---|---|---|
+| M1 | Data preprocessing | Resize, split, augmentation pipeline | `src/preprocess_data.py` | DVC stage outputs | ✅ |
+| M1 | Baseline model | Logistic regression baseline | `src/model.py` | Training logs | ✅ |
+| M1 | Experiment tracking | MLflow param/metric/artifact logging | `src/train.py` | MLflow runs | ✅ |
+| M1 | Versioning | DVC tracking of data/model | `dvc.yaml`, `.dvc` files | Reproducible pipeline | ✅ |
+| M2 | API service | FastAPI inference endpoints | `app/api.py` | Running service | ✅ |
+| M2 | Containerization | Docker + Compose | `Dockerfile`, `docker-compose.yml` | Container deployment | ✅ |
+| M3 | CI automation | Test + build workflows | `.github/workflows/ci.yml` | GitHub Actions | ✅ |
+| M3 | Testing | Unit + smoke tests | `tests/`, `scripts/smoke_test.py` | CI logs | ✅ |
+| M4 | CD deployment | Automated container deploy | `.github/workflows/cd.yml` | Successful runs | ✅ |
+| M4 | Deployment validation | Health + smoke checks | CD workflow | Deployment verification | ✅ |
+| M5 | Monitoring | Latency + request counters | `app/api.py` | `/metrics` endpoint | ✅ |
+| M5 | Post-deploy evaluation | Feedback loop scripts | `scripts/collect_feedback.py` | Results JSON | ✅ |
+
+---
+
 # 5. System Architecture
 
 ## Design Philosophy
@@ -308,8 +360,6 @@ MLOPSASSIGNMENT/
 │
 ├── models/
 │   └── model.pt              # Trained model artifact
-│
-├── notebooks/                # Optional experiments / exploration
 │
 ├── scripts/                  # Utility & deployment scripts
 │   ├── collect_feedback.py   # Monitoring feedback collection
@@ -410,9 +460,9 @@ ML systems fail reproducibility without data tracking.
 - Git manages source code.
 - DVC tracks datasets and model artifacts.
 
-
+```bash
 dvc repro
-
+```
 
 recreates pipeline deterministically.
 
@@ -774,6 +824,165 @@ evaluate_post_deploy.py
 Used to compute real-world accuracy.
 
 ---
+
+# Screenshots & Execution Evidence
+
+This section provides visual validation for every major stage of the MLOps lifecycle (M1–M5), demonstrating reproducibility, experiment tracking, deployment, and automation.
+
+## M1 — Data Pipeline & Experiment Tracking
+### DVC Pipeline Execution
+
+Shows reproducible preprocessing and training stages executed through DVC.
+
+![DVC Preprocess Stage](screenshots/01_dvc_repro.png)
+![DVC Training Stage](screenshots/02_dvc_repro.png)
+### MLflow Tracking Server Startup
+
+MLflow UI launched locally for experiment tracking.
+
+![MLflow UI Startup](screenshots/03_mlflow_ui.png)
+### Experiment Overview
+
+Multiple experiment runs tracked and versioned.
+
+![MLflow Experiments](screenshots/04_mlflow_experiments.png)
+### Experiment Runs List
+
+Comparison of multiple training runs.
+
+![Experiment Runs](screenshots/05_experiment_runs.png)
+### Run Parameters
+
+Logged hyperparameters for reproducibility.
+
+![Run Parameters](screenshots/06_run_parameters.png)
+### Model Metrics
+
+Training loss visualization.
+
+![Run Metrics](screenshots/07_run_metrics.png)
+### Artifacts Logged
+
+Tracked artifacts including model, metrics, and confusion matrix.
+
+![Run Artifacts](screenshots/08_run_artifacts.png)
+### Logged Model
+
+Model successfully registered within MLflow run.
+
+![Logged Model](screenshots/09_logged_model.png)
+## M2 — API Deployment & Containerization
+### FastAPI Server Startup (Local)
+
+API launched using Uvicorn.
+
+![FastAPI Start Command](screenshots/10_fast_api_cmd.png)
+### FastAPI Interactive Documentation (Swagger UI)
+
+Available endpoints exposed via automatic API docs.
+
+![FastAPI Swagger UI](screenshots/11_fast_api_ui.png)
+### Health Endpoint Verification
+
+API health check validation.
+
+![Health Check Response](screenshots/12_health.png)
+### Prediction API Request
+
+Testing /predict endpoint via Swagger UI.
+
+![Prediction Request](screenshots/13_predict_api_request.png)
+### Prediction API Response
+
+Inference output including prediction, confidence, and latency.
+
+![Prediction Response](screenshots/14_predict_api_response.png)
+### Docker Image Build
+
+Container image creation from Dockerfile.
+
+![Docker Build](screenshots/13_docker_build.png)
+### Docker Container Run
+
+Inference API running inside container.
+
+![Docker Run](screenshots/14_docker_run.png)
+### Docker Desktop Verification
+
+Container and image visible inside Docker Desktop.
+
+![Docker Desktop](screenshots/15_docker_desktop.png)
+## M3 — CI Pipeline (GitHub Actions)
+### Workflow Overview
+
+All workflows tracked inside GitHub Actions.
+
+![Workflow Overview](screenshots/16_workflows.png)
+### CI Pipeline Execution
+
+Automated tests, build, and validation steps.
+
+![CI Pipeline](screenshots/17_ci_pipeline.png)
+## M4 — CD Pipeline & Deployment
+### CD Deployment Pipeline
+
+Automated deployment and post-deployment verification.
+
+![CD Pipeline](screenshots/18_cd_pipeline.png)
+
+## M5 — Monitoring & Runtime Metrics
+### Metrics Endpoint Output
+
+Runtime monitoring exposed via /metrics endpoint, capturing:
+
+- total requests
+
+- successful vs failed requests
+
+- average / min / max latency
+
+- prediction distribution
+
+- last request timestamp
+
+- This validates post-deployment observability and feedback collection.
+
+![Monitoring Metrics Endpoint](screenshots/19_monitoring_metrics.png)
+
+## Post-Deployment Evaluation Output (JSON Structure)
+
+After deployment, inference results are collected and stored for monitoring and evaluation purposes.
+
+Each record captures:
+
+- input image path
+- true label (ground truth)
+- model prediction
+
+Example structure from `deployment_results.json`:
+
+```json
+[
+  {
+    "image": "data/val/cats/cat.4001.jpg",
+    "true_label": "cat",
+    "predicted_label": "cat"
+  },
+  {
+    "image": "data/val/cats/cat.4004.jpg",
+    "true_label": "cat",
+    "predicted_label": "dog"
+  }
+]
+```
+
+This dataset is later used to:
+
+- compute post-deployment accuracy
+
+- analyze prediction drift
+
+- evaluate real-world performance
 
 # 12. Installation & Setup
 

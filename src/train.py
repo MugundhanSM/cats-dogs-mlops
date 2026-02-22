@@ -135,17 +135,17 @@ def train():
         with open("confusion_matrix.json", "w") as f:
             json.dump(cm.tolist(), f)
 
+        torch.save(model.state_dict(), cfg.model_path)
         # ---------------------------
         # LOG ARTIFACTS
         # ---------------------------
         mlflow.log_artifact("metrics.json")
         mlflow.log_artifact("confusion_matrix.json")
         mlflow.log_artifact("class_names.json")
+        mlflow.log_artifact("models/model.pt")
 
         # save model
-        mlflow.pytorch.log_model(model, "model")
-
-        torch.save(model.state_dict(), cfg.model_path)
+        mlflow.pytorch.log_model(model, "LogisticRegression Model")
 
 
 if __name__ == "__main__":
